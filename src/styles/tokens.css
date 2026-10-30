@@ -1,4 +1,4 @@
-/* Source Serif 4 headings with a Source Sans 3 body (findings.md fallback for Proxima Nova). */
+/* Source Serif 4 headings with a neutral Arial body. */
 
 :root {
   --color-jumbo: #002e6d;
@@ -23,29 +23,17 @@
   --news-media: var(--color-tufts-brown);
   --news-conference: #5a3d8a;
   --news-lab: #2f6b45;
-  --color-paper: #ffffff;
-  --color-paper-2: #f7f4ef;
-  --color-rule: #dde2e8;
-  --color-rule-strong: var(--color-jumbo);
-  --color-surface: var(--color-paper);
+  --color-surface: var(--color-white);
   --color-band: var(--color-candle);
   --color-text: var(--color-body);
   --color-text-muted: var(--color-body-muted);
   --color-border: #c9d5e1;
   --color-focus: var(--color-tufts-blue);
-  /* Darker Jumbo for hover on solid primary surfaces. */
-  --color-primary-strong: #001f4a;
-  --color-on-primary: var(--color-white);
-  /* Translucent white on the Jumbo inst-bar (search field). */
-  --color-on-primary-line: rgb(255 255 255 / 0.32);
-  --color-on-primary-fill: rgb(255 255 255 / 0.1);
-  --color-on-primary-fill-strong: rgb(255 255 255 / 0.18);
-  --color-on-primary-muted: rgb(255 255 255 / 0.72);
 
   --font-display: "Source Serif 4", Georgia, serif;
-  --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
-  /* Interface text shares the body face (two families total). */
-  --font-ui: var(--font-body);
+  --font-body: Arial, Helvetica, sans-serif;
+  /* Interface text: navigation, buttons, labels, tabs, footer headings. */
+  --font-ui: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -56,15 +44,14 @@
   --space-7: 3rem;
   --space-8: 4.5rem;
 
-  --measure: 72rem;
+  --measure: 68rem;
   --measure-narrow: 40rem;
-  --radius: 4px;
-  --radius-card: var(--radius);
+  --radius: 2px;
+  --radius-card: 12px;
   --radius-pill: 999px;
   --header-offset: 0.5rem;
 
-  /* Shadows are retired for cards (1px var(--color-rule) borders instead); kept defined
-     so any remaining consumer degrades gracefully. */
+  /* Layered, blue-tinted shadows replace hard 1px borders on cards. */
   --shadow-sm: 0 1px 2px rgb(0 46 109 / 0.06), 0 2px 8px rgb(0 46 109 / 0.05);
   --shadow-md: 0 2px 6px rgb(0 46 109 / 0.06), 0 10px 28px rgb(0 46 109 / 0.09);
   --shadow-lg: 0 6px 14px rgb(0 46 109 / 0.08), 0 22px 48px rgb(0 46 109 / 0.14);

@@ -6,7 +6,7 @@ interface Props {
   project: CollectionEntry<'projects'>;
 }
 
-// Image-top project card: framed figure, short title, one-line tagline. Whole card links.
+// Image-top project card (HuMNet style): figure, short title, one-line tagline. Whole card links.
 const { project } = Astro.props;
 const { title, short, tagline, summary, cover, coverAlt, coverWidth, coverHeight, funder, year } = project.data;
 const heading = short ?? title;
@@ -26,10 +26,7 @@ const heading = short ?? title;
         />
       ) : (
         // Typographic stand-in until a figure is chosen for this project.
-        <span class="project-media-label" aria-hidden="true">
-          <span>{funder ?? 'Project'}</span>
-          {year && <span>{year}</span>}
-        </span>
+        <span class="project-media-label" aria-hidden="true">{funder ?? 'Project'}{year ? ` · ${year}` : ''}</span>
       )}
     </div>
     <div class="project-copy">

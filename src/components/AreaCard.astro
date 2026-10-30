@@ -4,11 +4,9 @@ interface Props {
   body: string;
   chips?: readonly string[];
   texture?: 'contours' | 'blocks' | 'waves' | 'mesh';
-  /** 1-based position in the Research Areas grid, shown as a two-digit figure. */
-  index?: number;
 }
 
-const { title, body, chips = [], texture = 'contours', index } = Astro.props;
+const { title, body, chips = [], texture = 'contours' } = Astro.props;
 
 // Decorative line drawings (topography, exposure dots, coastline, FEM mesh) generated at build time.
 const W = 320;
@@ -93,7 +91,6 @@ const circles = texture === 'blocks' ? dots() : [];
 ---
 
 <article class="area-cell">
-  {index !== undefined && <p class="area-num" aria-hidden="true">{String(index).padStart(2, '0')}</p>}
   <svg class="area-texture" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
     {lines.map((d) => <path d={d} />)}
     {circles.map((c) => <circle cx={c.cx} cy={c.cy} r={c.r} />)}

@@ -21,23 +21,22 @@ const pubs = pubIds
   .filter((p): p is CollectionEntry<'publications'> => Boolean(p))
   .sort((a, b) => b.data.year - a.data.year);
 const meta = [funder, year ? `${status === 'current' ? 'Since' : 'Started'} ${year}` : undefined, status === 'current' ? 'Current' : 'Completed']
-  .filter(Boolean);
+  .filter(Boolean)
+  .join(' · ');
 ---
 
 <BaseLayout title={project.data.short ?? title} description={summary}>
   <section class="section">
     <div class="wrap" style="max-width: 56rem;">
-      <nav aria-label="Breadcrumb">
-        <p class="project-crumb"><a href={sitePath('/projects')}>All projects</a></p>
-      </nav>
+      <p class="kicker"><a href={sitePath('/projects')}>Projects</a></p>
       <h1>{title}</h1>
-      <ul class="project-detail-meta">{meta.map((item) => <li>{item}</li>)}</ul>
+      <p class="project-detail-meta">{meta}</p>
       {cover && (
         <figure class="project-detail-figure">
           <img src={sitePath(cover)} alt={coverAlt ?? ''} width={coverWidth ?? 1200} height={coverHeight ?? 800} />
         </figure>
       )}
-      <p class="project-detail-summary">{summary}</p>
+      <p>{summary}</p>
 
       {pubs.length > 0 && (
         <>
