@@ -11,97 +11,37 @@ const byYear = years.map((year) => ({
   items: items.filter((item) => item.data.date.getUTCFullYear() === year),
 }));
 
-const monthYear = (date: Date) =>
-  date.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const monthDay = (date: Date) =>
+  date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
 
 <BaseLayout title="News" description="News and media features from the Climate Resilient and Equitable Infrastructure Lab.">
   <section class="section">
     <div class="wrap news">
       <h1>News &amp; Media Features</h1>
+      <p class="lede">Grants, awards, publications and press coverage from the lab.</p>
       {items.length === 0 && <p class="empty">No news items yet.</p>}
 
       {byYear.map(({ year, items: yearItems }) => (
         <section class="news-year" aria-labelledby={`news-${year}`}>
           <h2 id={`news-${year}`}>{year}</h2>
-          <ul class="news-list">
+          <ol class="news-list">
             {yearItems.map((item) => {
               const { title, excerpt, category, source, url, date } = item.data;
               return (
-                <li>
-                  <span class={`news-cat news-cat--${category.toLowerCase()}`}>[{category}]</span>{' '}
-                  <strong class="news-title">{title}</strong>. {excerpt}
-                  <span class="news-meta">
-                    {url ? <a href={url}>{source ?? 'Read the article'}</a> : source}
-                    <span class="news-date"><span aria-hidden="true"> | </span><time datetime={date.toISOString().slice(0, 10)}>{monthYear(date)}</time></span>
-                  </span>
+                <li class="news-item">
+                  <time class="news-date" datetime={date.toISOString().slice(0, 10)}>{monthDay(date)}</time>
+                  <div class="news-body">
+                    <p class="news-label"><span class={`news-cat news-cat--${category.toLowerCase()}`}>{category}</span>{source && <span class="news-source">{source}</span>}</p>
+                    <h3 class="news-title">{url ? <a href={url}>{title}</a> : title}</h3>
+                    <p class="news-summary">{excerpt}</p>
+                  </div>
                 </li>
               );
             })}
-          </ul>
+          </ol>
         </section>
       ))}
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .news {
-    max-width: 52rem;
-  }
-
-  .news-year {
-    margin-top: var(--space-6, 2.5rem);
-  }
-
-  .news-year h2 {
-    margin: 0 0 var(--space-3, 0.75rem);
-    font-size: 1.6rem;
-  }
-
-  .news-list {
-    margin: 0;
-    padding-left: 1.25rem;
-  }
-
-  .news-list li {
-    margin: 0 0 0.7rem;
-    padding-left: 0.2rem;
-    line-height: 1.6;
-  }
-
-  .news-list li::marker {
-    color: var(--color-text-muted);
-  }
-
-  .news-title {
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .news-meta {
-    color: var(--color-text-muted);
-  }
-
-  .news-date {
-    white-space: nowrap;
-  }
-
-  .news-meta::before {
-    content: ' | ';
-  }
-
-  /* Category labels; every color is at least 4.5:1 on white (WCAG AA for body text). */
-  .news-cat {
-    font-family: var(--font-ui, sans-serif);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .news-cat--grant { color: var(--news-grant); }
-  .news-cat--award { color: var(--news-award); }
-  .news-cat--publication { color: var(--news-publication); }
-  .news-cat--media { color: var(--news-media); }
-  .news-cat--conference { color: var(--news-conference); }
-  .news-cat--lab { color: var(--news-lab); }
-</style>

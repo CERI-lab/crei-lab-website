@@ -24,14 +24,14 @@ const LINKS = {
 
 <BaseLayout title="About" description="Farshid Vahedifard, Professor and Louis Berger Chair in Civil and Environmental Engineering at Tufts University.">
   <section class="section">
-    <div class="wrap">
+    <div class="wrap reading">
       {pi && (
         <div class="profile-head">
           {pi.data.photo && <img src={sitePath(pi.data.photo)} alt={pi.data.name} width="480" height="600" />}
           <div>
             <h1>{pi.data.name}, Ph.D.</h1>
             <p class="profile-lines">
-              {pi.data.title}<br />
+              <span class="profile-role">{pi.data.title}</span><br />
               Department of Civil and Environmental Engineering<br />
               School of Engineering, Tufts University
             </p>
@@ -105,7 +105,7 @@ const LINKS = {
           {courses.map((course) => (
             <li>
               <strong>{course.data.code ? `${course.data.code}: ${course.data.title}` : course.data.title}</strong>
-              {(course.data.term || course.data.year) && <> ({[course.data.term, course.data.year].filter(Boolean).join(' ')})</>}
+              {(course.data.term || course.data.year) && <span class="course-term"> ({[course.data.term, course.data.year].filter(Boolean).join(' ')})</span>}
               {course.data.description && <p>{course.data.description}</p>}
             </li>
           ))}
@@ -119,30 +119,3 @@ const LINKS = {
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  /* Readable measure for the long-form bio; spacing between paragraphs rather than indents. */
-  .pi-bio {
-    margin-top: var(--space-6);
-  }
-  .profile-more {
-    margin: var(--space-4) 0 0;
-    font-family: var(--font-ui);
-    font-size: 0.875rem;
-  }
-  .pi-bio p {
-    margin: 0 0 1.15em;
-  }
-  .pi-bio p:last-child {
-    margin-bottom: 0;
-  }
-  .pi-bio cite {
-    font-style: italic;
-  }
-  .pi-bio a {
-    text-underline-offset: 0.15em;
-  }
-  .pi-bio + h2 {
-    margin-top: var(--space-7);
-  }
-</style>

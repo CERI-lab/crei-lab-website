@@ -7,19 +7,24 @@ interface Props {
   pub: CollectionEntry<'publications'>;
 }
 
-// One Nature-style reference: Authors. Title. *Journal* **vol**, pages (year).
-// Kept on single lines on purpose: JSX newlines would render as stray spaces before commas.
+// One table-of-contents entry: serif title linking to the article, then authors, then
+// *Journal* **vol**, pages (year). Inline runs stay on single lines on purpose: JSX newlines
+// would render as stray spaces before commas.
 const { pub } = Astro.props;
-const { title, authors, year, venue, volume, pages, doi, pdf, code } = pub.data;
+const { title, authors, year, venue, volume, pages, doi, url, pdf, code } = pub.data;
 const cleanTitle = title.replace(/\.$/, '');
+const href = doi ? `https://doi.org/${doi}` : url;
 const isInGroupAuthor = await labAuthorMatcher();
 ---
 
 <article class="pub-item">
-  <p class="pub-ref">
-    {authors.map((name, i) => <>{authorSeparator(i, authors.length)}<span class={isInGroupAuthor(name) ? 'author-ingroup' : undefined}>{natureAuthor(name)}</span></>)}{' '}<span class="pub-title">{cleanTitle}.</span>{' '}<em>{venue}</em>{volume && <>{' '}<b>{volume}</b></>}{pages && <>, {pages}</>}{` (${year}).`}
-    {doi && <a href={`https://doi.org/${doi}`} aria-label={`DOI for ${title}`}>DOI</a>}
-    {pdf && <a href={pdf} aria-label={`PDF of ${title}`}>PDF</a>}
-    {code && <a href={code} aria-label={`Code for ${title}`}>Code</a>}
-  </p>
+  <h3 class="pub-title">{href ? <a href={href}>{cleanTitle}</a> : cleanTitle}</h3>
+  <p class="pub-authors">{authors.map((name, i) => <>{authorSeparator(i, authors.length)}<span class={isInGroupAuthor(name) ? 'author-ingroup' : undefined}>{natureAuthor(name)}</span></>)}</p>
+  <p class="pub-source"><em class="pub-venue">{venue}</em>{volume && <>{' '}<b>{volume}</b></>}{pages && <>, {pages}</>}{' '}<span class="pub-year">({year})</span></p>
+  {(pdf || code) && (
+    <p class="pub-links">
+      {pdf && <a href={pdf} aria-label={`PDF of ${title}`}>PDF</a>}
+      {code && <a href={code} aria-label={`Code for ${title}`}>Code</a>}
+    </p>
+  )}
 </article>

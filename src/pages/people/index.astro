@@ -68,20 +68,30 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
       {alumni.length > 0 && (
         <section class="people-group" aria-labelledby="people-alumni">
           <h2 id="people-alumni">Alumni</h2>
-          <ul class="alumni-list">
-            {alumniList.map((p) => {
-              const role = p.data.formerGroup ? ROLE_LABEL[p.data.formerGroup] : undefined;
-              const meta = [role, p.data.years && `(${p.data.years})`].filter(Boolean).join(' ');
-              const href = hasProfile(p) ? sitePath(profilePath(p)) : p.data.website;
-              return (
-                <li>
-                  <strong class="alumni-name">{href ? <a href={href}>{p.data.name}</a> : p.data.name}</strong>
-                  {meta && <span class="alumni-meta">, {meta}</span>}
-                  {p.data.current && <span class="alumni-current">. Currently {p.data.current.replace(/\.$/, '')}.</span>}
-                </li>
-              );
-            })}
-          </ul>
+          <table class="alumni-table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Former role</th>
+                <th scope="col">Years</th>
+                <th scope="col">Current position</th>
+              </tr>
+            </thead>
+            <tbody>
+              {alumniList.map((p) => {
+                const role = p.data.formerGroup ? ROLE_LABEL[p.data.formerGroup] : undefined;
+                const href = hasProfile(p) ? sitePath(profilePath(p)) : p.data.website;
+                return (
+                  <tr>
+                    <th scope="row" class="alumni-name">{href ? <a href={href}>{p.data.name}</a> : p.data.name}</th>
+                    <td class="alumni-role">{role}</td>
+                    <td class="alumni-years">{p.data.years}</td>
+                    <td class="alumni-current">{p.data.current?.replace(/\.$/, '')}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </section>
       )}
 
@@ -100,124 +110,3 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  /* Faculty row: PI and visiting side by side, wider than member cards, with generous space between. */
-  .people-faculty {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 18rem));
-    gap: var(--space-6) var(--space-8);
-    margin-bottom: var(--space-7);
-  }
-
-  .people-faculty :global(.person) { max-width: none; }
-
-  /* Photo-forward grid: cards fill their columns (4 across at full width), 2.5rem gutters. */
-  .people-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
-    gap: 2.5rem 2.5rem;
-    margin-bottom: var(--space-5);
-  }
-
-  @media (max-width: 30rem) {
-    .people-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--space-5) var(--space-4);
-    }
-  }
-
-  .alumni-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    max-width: 52rem;
-  }
-
-  .alumni-list li {
-    padding: 0.5rem 0;
-    border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
-    font-size: 0.9375rem;
-    line-height: 1.55;
-  }
-
-  .alumni-list li:last-child {
-    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
-  }
-
-  .alumni-name {
-    font-family: var(--font-display);
-    font-weight: 600;
-  }
-
-  .alumni-name a {
-    color: var(--color-text);
-  }
-
-  .alumni-name a:hover {
-    color: var(--color-link);
-  }
-
-  .alumni-meta,
-  .alumni-current {
-    color: var(--color-text-muted);
-  }
-
-  /*
-   * Snapshots. One portrait + two landscapes: portrait left, landscapes stacked right.
-   * Columns 9fr : 8fr make the 3:4 portrait exactly as tall as two stacked 4:3 photos.
-   * Any other mix falls back to a masonry column flow that keeps each photo's own ratio.
-   */
-  .snapshot-mosaic {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .snapshot-mosaic li {
-    overflow: hidden;
-    background: var(--color-sky);
-  }
-
-  .snapshot-mosaic img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .mosaic-feature {
-    display: grid;
-    grid-template-columns: 9fr 8fr;
-    gap: var(--space-3);
-  }
-
-  .mosaic-feature .is-portrait {
-    grid-row: span 2;
-  }
-
-  .mosaic-feature .is-portrait img {
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .mosaic-masonry {
-    columns: 3 16rem;
-    column-gap: var(--space-3);
-  }
-
-  .mosaic-masonry li {
-    break-inside: avoid;
-    margin-bottom: var(--space-3);
-  }
-
-  @media (max-width: 40rem) {
-    .mosaic-feature {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .mosaic-feature .is-portrait {
-      grid-row: auto;
-    }
-  }
-</style>

@@ -16,103 +16,18 @@ const { name, title, email, scholar, linkedin, website, photo } = person.data;
 const initials = initialsOf(name);
 // PI links to the CEE profile (like visiting faculty); postdocs and Ph.D. students to their profile; others to an external page if any.
 const nameHref = pi ? CEE_PROFILE_URL : hasProfile(person) ? sitePath(profilePath(person)) : website;
+// Styles live in src/styles/parts/people.css so the faculty row can restyle the same markup.
 ---
 
 <article class="person">
   {photo ? (
     // Decorative: the name follows as text, so screen readers do not hear it twice.
-    <img class="person-photo" src={sitePath(photo)} alt="" width="400" height="500" loading="lazy" />
+    <img class="person-photo" src={sitePath(photo)} alt="" width="400" height="500" loading={pi ? 'eager' : 'lazy'} fetchpriority={pi ? 'high' : undefined} decoding="async" />
   ) : (
     <div class="person-photo person-initials" aria-hidden="true">{initials}</div>
   )}
-  {/* Name, then small contact icons pushed to the right edge (Joy, 2026-10-15). */}
-  <div class="person-head">
-    <h4 class="person-name">{nameHref ? <a href={nameHref}>{name}</a> : name}</h4>
-    <IconLinks name={name} scholar={scholar} website={website} linkedin={linkedin} email={email} />
-  </div>
+  <h3 class="person-name">{nameHref ? <a href={nameHref}>{name}</a> : name}</h3>
   {/* PI: lab role leads the academic title, e.g. "Director, Professor and ..." (Joy, 2026-10-15). */}
   <p class="person-title">{pi ? `Director, ${title}` : title}</p>
+  <IconLinks name={name} scholar={scholar} website={website} linkedin={linkedin} email={email} />
 </article>
-
-<style>
-  /* Card fills its grid column (photo full width), so the icons line up with the photo's right edge. */
-  .person {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .person-photo {
-    display: block;
-    width: 100%;
-    max-width: none;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    margin-bottom: 0.875rem;
-    object-fit: cover;
-    object-position: center 25%;
-    background: var(--color-sky);
-  }
-
-  .person-initials {
-    display: grid;
-    place-items: center;
-    color: color-mix(in srgb, var(--color-primary) 55%, transparent);
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 400;
-    letter-spacing: 0.04em;
-  }
-
-  .person-name {
-    min-width: 0;
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.25;
-  }
-
-  .person-name a {
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .person-name a:hover,
-  .person-name a:focus-visible {
-    color: var(--color-link);
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
-  }
-
-  .person-head {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.25rem 0.5rem;
-  }
-
-  .person-title {
-    margin: 0.25rem 0 0;
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    line-height: 1.4;
-  }
-
-  .person :global(.icon-links) {
-    flex: none;
-    gap: 0.25rem;
-  }
-
-  .person :global(.icon-links a) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .person :global(.icon-links svg) {
-    width: 0.8125rem;
-    height: 0.8125rem;
-  }
-
-</style>

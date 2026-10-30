@@ -57,7 +57,7 @@ const index = [
 
 <BaseLayout title="Search" description="Search the Climate Resilient and Equitable Infrastructure Lab site.">
   <section class="section">
-    <div class="wrap">
+    <div class="wrap search-page">
       <h1>Search</h1>
       <p class="lede">Find people, projects, publications, courses, and news.</p>
       <form class="page-search" action={sitePath('/search')} method="get" role="search">
@@ -66,7 +66,7 @@ const index = [
         <button type="submit">Search</button>
       </form>
       <p id="search-status" class="empty" role="status" aria-live="polite">Enter a search term above.</p>
-      <ul id="search-results" class="search-results footer-list"></ul>
+      <ol id="search-results" class="search-results"></ol>
     </div>
   </section>
 </BaseLayout>
@@ -91,10 +91,16 @@ const index = [
       // Build links with DOM APIs so collection content can never be interpreted as HTML.
       hits.forEach((hit) => {
         const item = document.createElement('li');
+        const kind = document.createElement('p');
+        kind.className = 'search-kind';
+        kind.textContent = hit.kind;
+        const title = document.createElement('p');
+        title.className = 'search-title';
         const link = document.createElement('a');
         link.href = hit.href;
-        link.textContent = `${hit.kind}: ${hit.title}`;
-        item.append(link);
+        link.textContent = hit.title;
+        title.append(link);
+        item.append(kind, title);
         list.append(item);
       });
     }
@@ -114,10 +120,14 @@ const index = [
     border: 0;
   }
 
+  .search-page > h1 { margin-bottom: var(--space-3); }
+  .search-page > .lede { margin: 0 0 var(--space-5); max-width: 40rem; }
+
   .page-search {
     display: flex;
     gap: var(--space-2);
-    margin-bottom: var(--space-6);
+    max-width: 40rem;
+    margin-bottom: var(--space-5);
   }
 
   .page-search input {
@@ -125,23 +135,82 @@ const index = [
     min-width: 10rem;
     flex: 1;
     padding: 0 var(--space-3);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+    background: var(--color-paper);
     color: var(--color-text);
-    font: inherit;
     font-family: var(--font-ui);
+    font-size: 1rem;
+    caret-color: var(--color-primary);
+    transition: border-color var(--dur-fast) var(--ease-out);
   }
+
+  .page-search input::placeholder { color: var(--color-text-muted); opacity: 1; }
+  .page-search input:hover { border-color: var(--color-text-muted); }
+  .page-search input:focus-visible { border-color: var(--color-primary); outline-offset: 1px; }
 
   .page-search button {
     min-height: 44px;
     min-width: 44px;
-    padding: 0 var(--space-3);
+    padding: 0 var(--space-5);
     border: 1px solid var(--color-primary);
-    background: transparent;
-    color: var(--color-primary);
-    font: inherit;
+    border-radius: var(--radius-card);
+    background: var(--color-primary);
+    color: var(--color-white);
     font-family: var(--font-ui);
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+  }
+
+  .page-search button:hover { background: var(--color-link); border-color: var(--color-link); }
+  .page-search button:active { transform: translateY(1px); }
+
+  #search-status {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-rule-strong);
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .search-results {
+    max-width: 48rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .search-results :global(li) { padding-block: 1rem; }
+  .search-results :global(li + li) { border-top: 1px solid var(--color-rule); }
+  .search-results :global(p) { margin: 0; }
+
+  .search-results :global(.search-kind) {
+    margin-bottom: 0.125rem;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .search-results :global(.search-title) {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+  }
+
+  .search-results :global(.search-title a) {
+    color: var(--color-primary);
+    text-decoration: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .search-results :global(.search-title a:hover) { color: var(--color-link); text-decoration-line: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-search input { transition: none; }
   }
 </style>

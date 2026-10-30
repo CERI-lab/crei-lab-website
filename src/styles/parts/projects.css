@@ -1,23 +1,12 @@
-/* Projects: funding-oriented cards, image on top, centered short title + tagline. */
+/* Projects (2026-10-30): the figure sits in a hairline frame; title and tagline set below it,
+   left-aligned. No shadow and no lift: hover turns the frame Jumbo and underlines the title. */
 .project-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.75rem;
+  gap: var(--space-7) clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.project-card {
-  min-width: 0;
-  overflow: hidden;
-  border-radius: var(--radius-card);
-  background: var(--color-white);
-  box-shadow: var(--shadow-sm);
-  transition:
-    transform var(--dur) var(--ease-out),
-    box-shadow var(--dur) var(--ease-out);
-}
-
-.project-card:hover,
-.project-card:focus-within { box-shadow: var(--shadow-lg); }
+.project-card { min-width: 0; }
 
 .project-link { display: block; height: 100%; color: inherit; text-decoration: none; }
 .project-link:hover { color: inherit; }
@@ -25,48 +14,107 @@
 .project-media {
   display: grid;
   place-items: center;
-  aspect-ratio: 6 / 5;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  background:
-    linear-gradient(rgb(0 46 109 / 0.06) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(90deg, rgb(0 46 109 / 0.06) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(140deg, #e8f2fb 0%, #f7f9fc 55%, #eef3f8 100%);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  transition: border-color var(--dur-fast) ease;
 }
 
-.project-media:has(img) { background: var(--color-white); }
+/* On a paper-2 band the frame flips to white so it still reads as a plate. */
+.section-band .project-media { background: var(--color-paper); }
 
 /* Figures are diagrams; show them whole rather than cropped. */
 .project-media img {
   width: 100%;
   height: 100%;
-  padding: 0.75rem;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
   object-fit: contain;
 }
 
+/* Typographic stand-in until a figure is chosen: funder over year, in the display face. */
 .project-media-label {
+  display: grid;
+  gap: 0.25rem;
   padding: 1rem;
   color: var(--color-text-muted);
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
   text-align: center;
-  text-transform: uppercase;
 }
 
-.project-copy { padding: 1.5rem 1.25rem 1.75rem; text-align: center; }
-.project-copy h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
-.project-copy p { margin: 0; color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.45; }
-.project-link:focus-visible { outline: 3px solid var(--color-focus); outline-offset: -3px; }
+.project-copy { padding: var(--space-4) 0 0; }
+
+.project-copy h3 {
+  min-width: 0;
+  margin: 0 0 var(--space-1);
+  font-size: 1.3125rem;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-fast) ease;
+}
+
+.project-copy p { margin: 0; color: var(--color-text-muted); font-size: 0.9375rem; line-height: 1.5; }
+
+.project-link:hover .project-media,
+.project-link:focus-visible .project-media { border-color: var(--color-primary); }
+
+.project-link:hover h3,
+.project-link:focus-visible h3 { text-decoration-color: currentColor; }
+
+.project-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-card); }
 
 @media (max-width: 960px) {
   .project-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 640px) {
-  .project-cards { grid-template-columns: minmax(0, 1fr); max-width: 28rem; margin-inline: auto; }
+  .project-cards { grid-template-columns: minmax(0, 1fr); }
 }
 
-.project-detail-meta { margin: 0 0 var(--space-5); color: var(--color-text-muted); font-family: var(--font-ui); font-size: 0.875rem; }
-.project-detail-figure { margin: 0 0 var(--space-6); }
+/* Project detail: breadcrumb link above the title, facts line, framed figure. */
+.project-crumb {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.project-crumb a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--dur-fast) ease;
+}
+
+.project-crumb a:hover { color: var(--color-primary); text-decoration-color: currentColor; }
+
+.project-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  list-style: none;
+}
+
+.project-detail-figure {
+  margin: 0 0 var(--space-6);
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+}
+
 .project-detail-figure img { display: block; width: 100%; height: auto; max-height: 30rem; object-fit: contain; }
+
+.project-detail-summary { max-width: 42rem; font-size: 1.0625rem; line-height: 1.65; }

@@ -1,50 +1,315 @@
-/* People: compact horizontal rows; contact details as small round icons. */
-.member {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr);
-  gap: 0.25rem 1rem;
-  align-items: center;
-  padding: 0.75rem;
-  border: 1px solid var(--rule);
-  background: var(--color-surface);
+/* People: faculty register, member grid, alumni table, snapshots, profile pages.
+   Hairlines and type carry the structure; no card boxes, no shadows. */
+
+/* Contact icons (markup in IconLinks.astro): plain glyphs in currentColor, no coins.
+   The hit area stays at 1.75rem (28px) so the 24px WCAG 2.2 target is met. */
+.icon-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem;
+  margin: 0 0 0 -0.375rem;
+  padding: 0;
+  list-style: none;
 }
-
-.member-photo {
-  grid-row: span 2;
-  width: 4.5rem;
-  height: 4.5rem;
-  object-fit: cover;
-  background: var(--color-sky);
-}
-
-.member-initials {
-  display: grid;
-  place-items: center;
-  color: var(--color-primary);
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-}
-
-.member-name { margin: 0; font-family: var(--font-display); font-size: 1.05rem; line-height: 1.25; }
-.member-title { margin: 0.1rem 0 0; color: var(--color-text-muted); font-size: 0.8125rem; line-height: 1.35; }
-.member .icon-links { align-self: start; margin-top: 0.15rem; }
-
-.icon-links { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0; padding: 0; list-style: none; }
 
 .icon-links a {
   display: grid;
   place-items: center;
   width: 1.75rem;
   height: 1.75rem;
-  border-radius: 50%;
-  background: var(--color-text);
-  color: var(--color-white);
-  transition: background-color var(--dur-fast) ease;
+  border-radius: var(--radius-card);
+  color: var(--color-text-muted);
+  transition: color var(--dur-fast) ease;
 }
 
-.icon-links a:hover { background: var(--color-primary); color: var(--color-white); }
-.icon-links svg { width: 0.95rem; height: 0.95rem; fill: currentColor; }
+.icon-links a:hover { color: var(--color-primary); }
+.icon-links a:focus-visible { outline-offset: 0; transition: none; }
+.icon-links svg { width: 1.125rem; height: 1.125rem; fill: currentColor; }
 
-.people-group + .people-group { margin-top: var(--space-6); }
-.people-group > h2 { margin-bottom: var(--space-4); font-size: clamp(1.5rem, 2.6vw, 1.9rem); }
+/* Section heads: left-aligned h2 under a hairline that spans the wrap. */
+.people-group { margin-top: var(--space-7); }
+.people-group + .people-group { margin-top: var(--space-8); }
+
+.people-group > h2 {
+  min-width: 0;
+  text-wrap: balance;
+  margin: 0 0 var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-rule);
+  overflow-wrap: break-word;
+}
+
+/* Person (PersonCard.astro): 4:5 photo, serif name, muted title, icons. No box.
+   Hover signal is the name underline only; the photo never moves. */
+.person { display: flex; flex-direction: column; min-width: 0; }
+
+.person-photo {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  margin: 0 0 var(--space-4);
+  object-fit: cover;
+  object-position: center 25%;
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+}
+
+.person-initials {
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.person-name {
+  min-width: 0;
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+}
+
+.person-name a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-fast) ease;
+}
+
+.person-name a:hover { color: inherit; text-decoration-color: currentColor; }
+.person-name a:focus-visible { text-decoration-color: currentColor; transition: none; }
+
+.person-title {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.person .icon-links { margin-top: var(--space-2); }
+
+/* Faculty pair: PI and visiting professor, photo beside the name block. */
+.people-faculty {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-7);
+  margin-bottom: var(--space-7);
+  padding-bottom: var(--space-7);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.people-faculty .person {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  column-gap: var(--space-5);
+  align-content: start;
+}
+
+.people-faculty .person-photo { grid-column: 1; grid-row: 1 / span 3; margin: 0; }
+.people-faculty .person > :not(.person-photo) { grid-column: 2; }
+.people-faculty .person-name { padding-top: var(--space-2); font-size: 1.375rem; line-height: 1.2; }
+.people-faculty .person-title { margin-top: var(--space-2); font-size: 1rem; line-height: 1.5; }
+.people-faculty .person .icon-links { align-self: start; margin-top: var(--space-3); }
+.people-faculty .person-initials { font-size: 3rem; }
+
+/* Current members: 4 / 3 / 2 columns. */
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-7) var(--space-6);
+}
+
+@media (max-width: 60rem) {
+  .people-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .people-faculty { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 40rem) {
+  .people-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6) var(--space-4); }
+  .people-faculty .person { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); column-gap: var(--space-4); }
+  .people-faculty .person-name { font-size: 1.1875rem; }
+  .people-faculty .person-title { font-size: 0.9375rem; }
+}
+
+/* Alumni: an editorial table on hairline rows. */
+.alumni-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.alumni-table thead th {
+  padding: 0 var(--space-4) var(--space-2) 0;
+  border-bottom: 1px solid var(--color-rule-strong);
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.alumni-table td,
+.alumni-table tbody th {
+  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  border-bottom: 1px solid var(--color-rule);
+  color: var(--color-text-muted);
+  vertical-align: baseline;
+}
+
+.alumni-table .alumni-name {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.alumni-table .alumni-years { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.alumni-name a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-fast) ease;
+}
+
+.alumni-name a:hover { color: inherit; text-decoration-color: currentColor; }
+
+@media (max-width: 40rem) {
+  .alumni-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .alumni-table tr { display: block; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-rule); }
+  .alumni-table tbody tr:first-child { border-top: 1px solid var(--color-rule-strong); }
+  .alumni-table td,
+  .alumni-table tbody th { display: inline; padding: 0; border: 0; }
+  .alumni-table .alumni-name { display: block; margin-bottom: var(--space-1); }
+  .alumni-table .alumni-years::before { content: " ("; }
+  .alumni-table .alumni-years::after { content: ")"; }
+  .alumni-table .alumni-current { display: block; }
+  .alumni-table .alumni-current:not(:empty)::before { content: "Currently "; }
+}
+
+/* Snapshots. One portrait + two landscapes: portrait left, landscapes stacked right.
+   Columns 9fr : 8fr make the 3:4 portrait as tall as two stacked 4:3 photos.
+   Any other mix falls back to a masonry column flow that keeps each photo's ratio. */
+.snapshot-mosaic { max-width: none; margin: 0; padding: 0; list-style: none; }
+
+.snapshot-mosaic li {
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+}
+
+.snapshot-mosaic img { display: block; width: 100%; height: auto; }
+
+.mosaic-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 9fr) minmax(0, 8fr);
+  gap: var(--space-4);
+}
+
+.mosaic-feature .is-portrait { grid-row: span 2; }
+.mosaic-feature .is-portrait img { height: 100%; object-fit: cover; }
+
+.mosaic-masonry { columns: 3 16rem; column-gap: var(--space-4); }
+.mosaic-masonry li { break-inside: avoid; margin-bottom: var(--space-4); }
+
+@media (max-width: 40rem) {
+  .mosaic-feature { grid-template-columns: minmax(0, 1fr); }
+  .mosaic-feature .is-portrait { grid-row: auto; }
+}
+
+/* Profile page (/people/[id]): photo column, then name block and bio. */
+.crumb {
+  margin-bottom: var(--space-6);
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+}
+
+.crumb a { color: var(--color-link); }
+
+.profile {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-rule);
+}
+
+.profile-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 25%;
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+}
+
+.profile-initials {
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 400;
+}
+
+.profile-text { min-width: 0; }
+.profile-text h1 { min-width: 0; text-wrap: balance; margin: 0 0 var(--space-3); overflow-wrap: break-word; }
+.profile-title, .profile-affil { margin: 0; color: var(--color-text-muted); }
+.profile-title { color: var(--color-text); font-size: 1.125rem; line-height: 1.45; }
+.profile-affil { margin-top: var(--space-1); font-size: 1rem; line-height: 1.5; }
+.profile-text .icon-links { margin-top: var(--space-4); }
+
+.profile-keywords { margin: var(--space-5) 0 0; padding: 0; list-style: none; }
+
+.profile-keywords .chip {
+  padding: 0.125rem 0.625rem;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  letter-spacing: 0;
+}
+
+.profile-text .profile-bio {
+  max-width: 40rem;
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-rule);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.profile-text .profile-bio p:last-child { margin-bottom: 0; }
+
+@media (max-width: 48rem) {
+  .profile { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .profile-photo { max-width: 13rem; }
+}

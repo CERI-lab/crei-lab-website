@@ -1,5 +1,7 @@
 // WAI-ARIA tabs shared by Home highlights and Publications. Roots may nest, so each root
 // only controls the tabs in its own direct tab list.
+// The indicator is a fixed 1px x 2px bar (tabs.css). It is positioned under the active tab
+// with translate() and stretched to the tab's width with scaleX(), so only transform animates.
 function initTabs() {
   document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
     if (root.dataset.tabsReady) return;
@@ -9,9 +11,16 @@ function initTabs() {
 
     const moveIndicator = (tab: HTMLButtonElement) => {
       if (!indicator) return;
-      indicator.style.width = `${tab.offsetWidth}px`;
-      indicator.style.height = `${tab.offsetHeight}px`;
-      indicator.style.transform = `translate(${tab.offsetLeft}px, ${tab.offsetTop}px)`;
+      // A hidden tab list (inside a hidden panel) measures zero; wait for the ResizeObserver.
+      if (tab.offsetWidth === 0) return;
+      // Sit on the strip's bottom hairline: one pixel past the tab's bottom edge.
+      const y = tab.offsetTop + tab.offsetHeight - 1;
+      // The first placement jumps into position instead of sliding in from the corner.
+      const first = !indicator.classList.contains('is-placed');
+      if (first) indicator.style.setProperty('transition', 'none');
+      indicator.style.transform = `translate(${tab.offsetLeft}px, ${y}px) scaleX(${tab.offsetWidth})`;
+      indicator.classList.add('is-placed');
+      if (first) requestAnimationFrame(() => indicator.style.removeProperty('transition'));
     };
 
     const select = (tab: HTMLButtonElement, focus = false) => {
@@ -38,11 +47,8 @@ function initTabs() {
 
     const current = tabs.find((t) => t.getAttribute('aria-selected') === 'true') ?? tabs[0];
     if (!current) return;
-    // Place the indicator without animating on first paint; re-measure when a hidden
-    // tab list becomes visible or the layout changes.
-    indicator?.style.setProperty('transition', 'none');
     moveIndicator(current);
-    requestAnimationFrame(() => indicator?.style.removeProperty('transition'));
+    // Re-measure when a hidden tab list becomes visible or the layout changes.
     new ResizeObserver(() => {
       const active = tabs.find((t) => t.getAttribute('aria-selected') === 'true');
       if (active) moveIndicator(active);

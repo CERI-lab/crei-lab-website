@@ -38,32 +38,39 @@ const projects = (await getCollection('projects'))
     </div>
   </section>
 
-  <section class="section home-section" aria-labelledby="areas-heading">
+  <section class="section" aria-labelledby="areas-heading">
     <div class="wrap">
-      <h2 id="areas-heading" class="section-title">Research Areas</h2>
+      <div class="home-head">
+        <h2 id="areas-heading" class="section-title">Research Areas</h2>
+      </div>
       <div class="area-grid">
         {
-          RESEARCH_AREAS.map((area) => (
-            <AreaCard title={area.title} body={area.body} chips={area.chips} texture={area.texture} />
+          RESEARCH_AREAS.map((area, i) => (
+            <AreaCard index={i + 1} title={area.title} body={area.body} chips={area.chips} texture={area.texture} />
           ))
         }
       </div>
     </div>
   </section>
 
-  <section class="section section-band home-section" aria-labelledby="projects-heading">
+  <section class="section section-band" aria-labelledby="projects-heading">
     <div class="wrap">
-      <h2 id="projects-heading" class="section-title">Highlighted Projects</h2>
+      <div class="home-head">
+        <h2 id="projects-heading" class="section-title">Highlighted Projects</h2>
+        <a class="more-link" href={sitePath('/projects')}>View More Projects</a>
+      </div>
       <div class={`project-cards project-cards-home count-${projects.length}`}>
         {projects.map((project) => <ProjectCard project={project} />)}
       </div>
-      <p class="section-more"><a class="btn" href={sitePath('/projects')}>View More Projects</a></p>
     </div>
   </section>
 
-  <section class="section home-section" aria-labelledby="people-heading">
+  <section class="section" aria-labelledby="people-heading">
     <div class="wrap">
-      <h2 id="people-heading" class="section-title">People</h2>
+      <div class="home-head">
+        <h2 id="people-heading" class="section-title">People</h2>
+        <a class="more-link" href={sitePath('/people')}>View All People</a>
+      </div>
       {
         people.length === 0 ? (
           <p class="empty">Member profiles are not yet available.</p>
@@ -77,7 +84,7 @@ const projects = (await getCollection('projects'))
               return (
                 <li class="faculty">
                   {person.data.photo ? (
-                    <img class="faculty-photo" src={sitePath(person.data.photo)} alt="" width="320" height="320" loading="lazy" />
+                    <img class="faculty-photo" src={sitePath(person.data.photo)} alt="" width="320" height="400" loading="lazy" />
                   ) : (
                     <span class="faculty-photo faculty-initials" aria-hidden="true">
                       {person.data.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('')}
@@ -97,15 +104,16 @@ const projects = (await getCollection('projects'))
           </ul>
         )
       }
-      <p class="section-more"><a class="btn" href={sitePath('/people')}>View All People</a></p>
     </div>
   </section>
 
-  <section class="section section-band home-section" aria-labelledby="pubs-heading">
+  <section class="section section-band" aria-labelledby="pubs-heading">
     <div class="wrap">
-      <h2 id="pubs-heading" class="section-title">Highlighted Publications</h2>
+      <div class="home-head">
+        <h2 id="pubs-heading" class="section-title">Highlighted Publications</h2>
+        <a class="more-link" href={sitePath('/publications')}>View More Publications</a>
+      </div>
       <HighlightTabs />
-      <p class="section-more"><a class="btn" href={sitePath('/publications')}>View More Publications</a></p>
     </div>
   </section>
 </BaseLayout>
