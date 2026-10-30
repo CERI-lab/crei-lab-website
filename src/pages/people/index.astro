@@ -71,13 +71,13 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
           <ul class="alumni-list">
             {alumniList.map((p) => {
               const role = p.data.formerGroup ? ROLE_LABEL[p.data.formerGroup] : undefined;
-              const meta = [role, p.data.years && `(${p.data.years})`].filter(Boolean).join(' ');
+              // One line: Name | Former role | Years | Current position (Joy, 2026-10-30).
+              const parts = [role, p.data.years, p.data.current?.replace(/\.$/, '')].filter(Boolean);
               const href = hasProfile(p) ? sitePath(profilePath(p)) : p.data.website;
               return (
                 <li>
                   <strong class="alumni-name">{href ? <a href={href}>{p.data.name}</a> : p.data.name}</strong>
-                  {meta && <span class="alumni-meta">, {meta}</span>}
-                  {p.data.current && <span class="alumni-current">. Currently {p.data.current.replace(/\.$/, '')}.</span>}
+                  {parts.map((part) => <span class="alumni-meta"><span class="alumni-sep" aria-hidden="true"> | </span>{part}</span>)}
                 </li>
               );
             })}
@@ -111,6 +111,8 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
   }
 
   .people-faculty :global(.person) { max-width: none; }
+  /* Faculty keep the larger name; member names are a step smaller (Joy, 2026-10-30). */
+  .people-faculty :global(.person-name) { font-size: 1.125rem; }
 
   /* Photo-forward grid: cards fill their columns (4 across at full width), 2.5rem gutters. */
   .people-grid {
@@ -135,14 +137,13 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
   }
 
   .alumni-list li {
-    padding: 0.5rem 0;
-    border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    padding: 0.2rem 0;
     font-size: 0.9375rem;
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
-  .alumni-list li:last-child {
-    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  .alumni-sep {
+    color: var(--color-border);
   }
 
   .alumni-name {
@@ -158,8 +159,7 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
     color: var(--color-link);
   }
 
-  .alumni-meta,
-  .alumni-current {
+  .alumni-meta {
     color: var(--color-text-muted);
   }
 

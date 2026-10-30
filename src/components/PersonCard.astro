@@ -25,13 +25,15 @@ const nameHref = pi ? CEE_PROFILE_URL : hasProfile(person) ? sitePath(profilePat
   ) : (
     <div class="person-photo person-initials" aria-hidden="true">{initials}</div>
   )}
-  {/* Name, then small contact icons pushed to the right edge (Joy, 2026-10-15). */}
+  {/* Name and title on the left; contact icons sit under the photo's bottom-right corner (Joy, 2026-10-30). */}
   <div class="person-head">
-    <h4 class="person-name">{nameHref ? <a href={nameHref}>{name}</a> : name}</h4>
-    <IconLinks name={name} scholar={scholar} website={website} linkedin={linkedin} email={email} />
+    <div class="person-text">
+      <h4 class="person-name">{nameHref ? <a href={nameHref}>{name}</a> : name}</h4>
+      {/* PI: lab role leads the academic title, e.g. "Director, Professor and ..." (Joy, 2026-10-15). */}
+      <p class="person-title">{pi ? `Director, ${title}` : title}</p>
+    </div>
+    <IconLinks name={name} scholar={scholar} website={website} linkedin={linkedin} email={email} compact />
   </div>
-  {/* PI: lab role leads the academic title, e.g. "Director, Professor and ..." (Joy, 2026-10-15). */}
-  <p class="person-title">{pi ? `Director, ${title}` : title}</p>
 </article>
 
 <style>
@@ -68,7 +70,7 @@ const nameHref = pi ? CEE_PROFILE_URL : hasProfile(person) ? sitePath(profilePat
     min-width: 0;
     margin: 0;
     font-family: var(--font-display);
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     line-height: 1.25;
   }
@@ -88,9 +90,13 @@ const nameHref = pi ? CEE_PROFILE_URL : hasProfile(person) ? sitePath(profilePat
   .person-head {
     display: flex;
     flex-wrap: nowrap;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 0.25rem 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .person-text {
+    min-width: 0;
   }
 
   .person-title {
@@ -102,17 +108,8 @@ const nameHref = pi ? CEE_PROFILE_URL : hasProfile(person) ? sitePath(profilePat
 
   .person :global(.icon-links) {
     flex: none;
-    gap: 0.25rem;
+    flex-wrap: nowrap;
   }
 
-  .person :global(.icon-links a) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .person :global(.icon-links svg) {
-    width: 0.8125rem;
-    height: 0.8125rem;
-  }
 
 </style>

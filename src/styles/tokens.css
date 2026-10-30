@@ -28,6 +28,8 @@
   --color-text: var(--color-body);
   --color-text-muted: var(--color-body-muted);
   --color-border: #c9d5e1;
+  /* Hairline for section and column dividers (from the 2026-10-30 redesign). */
+  --color-rule: #dde2e8;
   --color-focus: var(--color-tufts-blue);
 
   --font-display: "Source Serif 4", Georgia, serif;

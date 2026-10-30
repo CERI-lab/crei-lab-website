@@ -43,8 +43,8 @@ const projects = (await getCollection('projects'))
       <h2 id="areas-heading" class="section-title">Research Areas</h2>
       <div class="area-grid">
         {
-          RESEARCH_AREAS.map((area) => (
-            <AreaCard title={area.title} body={area.body} chips={area.chips} texture={area.texture} />
+          RESEARCH_AREAS.map((area, i) => (
+            <AreaCard title={area.title} body={area.body} chips={area.chips} texture={area.texture} index={i + 1} />
           ))
         }
       </div>

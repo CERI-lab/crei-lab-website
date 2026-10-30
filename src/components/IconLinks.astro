@@ -1,14 +1,16 @@
 ---
-// Small round contact icons (Scholar, website, LinkedIn, email). Labels carry the person's name.
+// Plain contact icons (Scholar, website, LinkedIn, email) in the link colour. Labels carry the person's name.
 interface Props {
   name: string;
   scholar?: string;
   website?: string;
   linkedin?: string;
   email?: string;
+  /** Tighter row for member cards so the icons fit beside the name. */
+  compact?: boolean;
 }
 
-const { name, scholar, website, linkedin, email } = Astro.props;
+const { name, scholar, website, linkedin, email, compact = false } = Astro.props;
 
 const ICONS = {
   scholar: 'M12 3 1 9l4 2.2v6L12 21l7-3.8v-6l2-1.1V17h2V9L12 3Zm6.8 6L12 12.7 5.2 9 12 5.3 18.8 9ZM17 16l-5 2.7L7 16v-3.6l5 2.7 5-2.7V16Z',
@@ -27,7 +29,7 @@ const links = [
 
 {
   links.length > 0 && (
-    <ul class="icon-links">
+    <ul class:list={["icon-links", { compact }]}>
       {links.map((link) => (
         <li>
           <a href={link.href} aria-label={`${link.label}: ${name}`} title={link.label}>
@@ -38,3 +40,48 @@ const links = [
     </ul>
   )
 }
+
+<style>
+  /* Plain glyphs, no coins: 1.25rem icon in a 2rem hit area. The `li` step lifts these
+     scoped rules above the older .icon-links rules in parts/people.css, PersonCard and
+     people/[id] (those coin and size rules can be deleted there). */
+  .icon-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .icon-links li a {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-link);
+    transition: color var(--dur-fast) ease;
+  }
+
+  .icon-links li a:hover {
+    background: transparent;
+    color: var(--color-primary);
+  }
+
+  .icon-links li a:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 0;
+  }
+
+  .icon-links.compact { gap: 0; }
+  .icon-links.compact li a { width: 1.375rem; height: 1.375rem; }
+  .icon-links.compact li svg { width: 1rem; height: 1rem; }
+
+  .icon-links li svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+  }
+</style>
