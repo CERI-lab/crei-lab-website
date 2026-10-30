@@ -1,0 +1,71 @@
+/* Publications by year: sticky year rail with nodes on a vertical line. */
+.pub-timeline {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.pub-timeline > nav { position: sticky; top: var(--space-5); }
+
+.year-rail {
+  margin: 0;
+  padding: 0.25rem 0 0.25rem 1.1rem;
+  border-left: 2px solid var(--rule);
+  list-style: none;
+}
+
+.year-rail a {
+  position: relative;
+  display: block;
+  padding-block: 0.2rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.year-rail a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(-1.1rem - 6px);
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--color-white);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary) 30%, var(--color-white));
+  transform: translateY(-50%);
+  transition: background-color var(--dur-fast) ease, transform var(--dur-fast) ease;
+}
+
+.year-rail a:hover,
+.year-rail a[aria-current="true"] { color: var(--color-primary); font-weight: 700; }
+
+.year-rail a:hover::before,
+.year-rail a[aria-current="true"]::before { background: var(--color-primary); transform: translateY(-50%) scale(1.2); }
+.year-block { scroll-margin-top: var(--space-5); }
+.year-block + .year-block { margin-top: var(--space-6); }
+
+.year-block > h2 {
+  margin: 0 0 0.25rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--rule-strong);
+  font-size: 1.35rem;
+}
+
+.year-block .pub-item:first-of-type { border-top: 0; }
+
+.topic-panel > h2 { margin: var(--space-5) 0 var(--space-2); font-size: 1.2rem; line-height: 1.35; }
+.topic-count { color: var(--color-text-muted); font-weight: 400; }
+/* Numbered so the size of each topic is visible at a glance (Joy, 2026-10-15). */
+.topic-list { margin: 0; padding-left: 2.25rem; }
+.topic-list > li { padding-left: 0.25rem; }
+.topic-list > li::marker { color: var(--color-text-muted); font-family: var(--font-ui); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.topic-list > li:first-child .pub-item { border-top: 0; }
+
+@media (max-width: 760px) {
+  .pub-timeline { grid-template-columns: minmax(0, 1fr); }
+  .year-rail { display: none; }
+}

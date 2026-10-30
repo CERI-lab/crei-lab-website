@@ -1,0 +1,72 @@
+/* Projects: funding-oriented cards, image on top, centered short title + tagline. */
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+
+.project-card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.project-card:hover,
+.project-card:focus-within { box-shadow: var(--shadow-lg); }
+
+.project-link { display: block; height: 100%; color: inherit; text-decoration: none; }
+.project-link:hover { color: inherit; }
+
+.project-media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 6 / 5;
+  overflow: hidden;
+  background:
+    linear-gradient(rgb(0 46 109 / 0.06) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgb(0 46 109 / 0.06) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(140deg, #e8f2fb 0%, #f7f9fc 55%, #eef3f8 100%);
+}
+
+.project-media:has(img) { background: var(--color-white); }
+
+/* Figures are diagrams; show them whole rather than cropped. */
+.project-media img {
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+  object-fit: contain;
+}
+
+.project-media-label {
+  padding: 1rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.project-copy { padding: 1.5rem 1.25rem 1.75rem; text-align: center; }
+.project-copy h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
+.project-copy p { margin: 0; color: var(--color-text-muted); font-size: 0.875rem; line-height: 1.45; }
+.project-link:focus-visible { outline: 3px solid var(--color-focus); outline-offset: -3px; }
+
+@media (max-width: 960px) {
+  .project-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .project-cards { grid-template-columns: minmax(0, 1fr); max-width: 28rem; margin-inline: auto; }
+}
+
+.project-detail-meta { margin: 0 0 var(--space-5); color: var(--color-text-muted); font-family: var(--font-ui); font-size: 0.875rem; }
+.project-detail-figure { margin: 0 0 var(--space-6); }
+.project-detail-figure img { display: block; width: 100%; height: auto; max-height: 30rem; object-fit: contain; }

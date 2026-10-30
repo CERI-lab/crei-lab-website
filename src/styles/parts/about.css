@@ -1,0 +1,23 @@
+/* About: PI profile header beside the photo, then prose. */
+.profile-head {
+  display: grid;
+  grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+  margin-bottom: var(--space-6);
+}
+
+.profile-head img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.profile-head h1 { margin: 0 0 0.5rem; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.profile-lines { margin: 0 0 var(--space-4); color: var(--color-text-muted); line-height: 1.6; }
+.profile-bio p { line-height: 1.75; }
+.course-list { margin: 0; padding-left: 1.25rem; }
+.course-list li + li { margin-top: 0.5rem; }
+
+@media (max-width: 640px) {
+  .profile-head { grid-template-columns: minmax(0, 1fr); }
+  .profile-head img { max-width: 14rem; }
+}
+
+/* About Our Lab: full content width, like About (Joy, 2026-10-15). */
+.lab-page .lede { max-width: none; }

@@ -1,0 +1,13 @@
+/* News snapshots: lab meetings and conferences. */
+.snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.snapshot-grid figure { margin: 0; }
+.snapshot-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--color-sky); }
+.snapshot-grid figcaption { margin-top: 0.4rem; color: var(--color-text-muted); font-size: 0.8125rem; line-height: 1.4; }

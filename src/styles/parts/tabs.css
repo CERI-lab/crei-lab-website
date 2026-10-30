@@ -1,0 +1,80 @@
+/* Segmented tabs (Home highlights, Publications). The indicator is sized from the active tab. */
+.tab-list {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+  padding: 0.375rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-sky) 70%, var(--color-white));
+}
+
+.tab-list button {
+  position: relative;
+  z-index: 1;
+  min-height: 48px;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-weight: 500;
+  line-height: 1.25;
+  transition: color var(--dur) var(--ease-out);
+}
+.tab-list button[aria-selected="true"] { font-weight: 600; }
+
+.tab-list button:hover,
+.tab-list button[aria-selected="true"] { color: var(--color-primary); }
+
+/* White pill that slides beneath the active tab; also follows wrapped rows. */
+.tab-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 7px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 420ms var(--ease-out),
+    width 420ms var(--ease-out),
+    height 420ms var(--ease-out);
+}
+
+.tab-panel { animation: panel-in 520ms var(--ease-out) both; }
+.tab-panel[hidden] { display: none; }
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+/* Seven topic tabs wrap into rows instead of squeezing. */
+/* Flex so each topic tab sizes to its label and never wraps mid-label. */
+.tab-list-topics {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab-list-topics button { flex: 1 1 auto; font-size: 0.875rem; white-space: nowrap; }
+
+/* Compact two-way switch (By Year / By Topic). */
+.tab-list-switch {
+  display: inline-grid;
+  grid-auto-columns: 8.5rem;
+  margin-bottom: var(--space-6);
+}
+
+.tab-list-switch button { min-height: 40px; font-size: 0.875rem; }
+
+@media (max-width: 760px) {
+  .tab-list:not(.tab-list-switch) { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tab-list button { font-size: 0.8125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel { animation: none; }
+}
