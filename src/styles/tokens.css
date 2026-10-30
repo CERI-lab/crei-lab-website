@@ -16,6 +16,13 @@
   --color-link: #185b91;
   --color-accent-strong: #185b91;
   --color-secondary: var(--color-tufts-brown);
+  /* News category labels; each passes 4.5:1 on white. */
+  --news-grant: #8f1d1d;
+  --news-award: #8a5300;
+  --news-publication: var(--color-accent-strong);
+  --news-media: var(--color-tufts-brown);
+  --news-conference: #5a3d8a;
+  --news-lab: #2f6b45;
   --color-surface: var(--color-white);
   --color-band: var(--color-candle);
   --color-text: var(--color-body);

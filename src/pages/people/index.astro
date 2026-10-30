@@ -25,11 +25,16 @@ const membersOf = (group: Group) => people.filter((p) => groupOf(p) === group).s
 // Faculty row: PI first, then visiting faculty.
 const faculty = [...membersOf('pi'), ...membersOf('visiting')];
 const isCurrentMember = (p: Person) => !['pi', 'visiting', 'alumni'].includes(groupOf(p));
-// Current members by join year and term (Joy, 2026-10-30); same year falls back to role rank, then `order`. No year sorts last.
+// Join order: year, then Spring < Summer < Fall; no year sorts last.
 const TERMS = ['Spring', 'Summer', 'Fall'];
 const joinKey = (p: Person) => (p.data.since ?? 9999) * 10 + (p.data.term ? TERMS.indexOf(p.data.term) : 3);
 const bySince = (a: Person, b: Person) => joinKey(a) - joinKey(b);
-const members = people.filter(isCurrentMember).sort((a, b) => bySince(a, b) || rankOf(a) - rankOf(b) || byOrder(a, b));
+// Postdocs first, then students by join year and term, then visiting researchers and collaborators (Joy, 2026-10-30).
+const TIER: Record<string, number> = { postdoc: 0, phd: 1, masters: 1, 'visiting-researcher': 2, collaborator: 3 };
+const tierOf = (p: Person) => TIER[groupOf(p)] ?? 9;
+const members = people
+  .filter(isCurrentMember)
+  .sort((a, b) => tierOf(a) - tierOf(b) || bySince(a, b) || rankOf(a) - rankOf(b) || byOrder(a, b));
 const alumni = membersOf('alumni');
 const alumniRank = (p: Person) => ALUMNI_ORDER.indexOf(p.data.formerGroup ?? 'other');
 const alumniList = [...alumni].sort((a, b) => alumniRank(a) - alumniRank(b));

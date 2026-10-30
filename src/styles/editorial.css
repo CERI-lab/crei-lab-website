@@ -346,7 +346,7 @@
 }
 
 .project-card:hover,
-.project-card:focus-within { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.project-card:focus-within { box-shadow: var(--shadow-lg); }
 
 .project-link { display: block; height: 100%; color: inherit; text-decoration: none; }
 .project-link:hover { color: inherit; }
@@ -370,10 +370,7 @@
   height: 100%;
   padding: 0.75rem;
   object-fit: contain;
-  transition: transform 700ms var(--ease-out);
 }
-
-.project-card:hover .project-media img { transform: scale(1.04); }
 
 .project-media-label {
   padding: 1rem;
