@@ -16,10 +16,10 @@ export const groupOf = (p: Person): Group => p.data.group ?? ROLE_FALLBACK[p.dat
 
 const PROFILE_GROUPS = new Set<string>(['postdoc', 'phd']);
 
-/** Postdocs and Ph.D. students (current or former) get a /people/[id] page. */
+/** Current postdocs and Ph.D. students get a /people/[id] page; alumni only when their file has a bio. */
 export function hasProfile(p: Person) {
   const group = groupOf(p);
-  if (group === 'alumni') return PROFILE_GROUPS.has(p.data.formerGroup ?? '');
+  if (group === 'alumni') return Boolean(p.body?.trim());
   return PROFILE_GROUPS.has(group);
 }
 

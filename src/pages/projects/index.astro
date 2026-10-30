@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import ProjectCard from '../../components/ProjectCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
+import { byRecency, isOngoing, periodOf } from '../../lib/projects';
 
 // Funded projects. Those with a figure are "Highlighted" (image cards); every project, with or
 // without a figure, appears once more in the compact list below, ongoing work first.
@@ -10,12 +11,7 @@ const projects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order || (b.data.year ?? 0) - (a.data.year ?? 0),
 );
 const highlighted = projects.filter((p) => p.data.cover);
-const list = [...projects].sort(
-  (a, b) =>
-    Number(b.data.status === 'current') - Number(a.data.status === 'current') ||
-    (b.data.year ?? 0) - (a.data.year ?? 0) ||
-    a.data.order - b.data.order,
-);
+const list = [...projects].sort(byRecency);
 ---
 
 <BaseLayout title="Projects" description="Funded research projects at the Climate Resilient and Equitable Infrastructure Lab.">
@@ -38,15 +34,16 @@ const list = [...projects].sort(
           <h2 id="all-projects">Selected List of Projects</h2>
           <ul class="project-list">
             {list.map((project) => {
-              const { title, funder, year, status } = project.data;
-              const ongoing = status === 'current';
+              const { title, funder, role } = project.data;
+              const ongoing = isOngoing(project);
+              const roleAndPeriod = [role, periodOf(project)].filter(Boolean).join(', ');
               return (
                 <li>
                   <a class="project-row" href={sitePath(`/projects/${project.id}`)}>
                     <span class="project-row-title">{title}</span>
                     <span class="project-row-meta">
                       {funder}
-                      {year && <span>{ongoing ? `${year}–present` : `Started ${year}`}</span>}
+                      {roleAndPeriod && <span>{roleAndPeriod}</span>}
                       <span class:list={['project-status', { 'is-ongoing': ongoing }]}>
                         {ongoing ? 'Ongoing' : 'Completed'}
                       </span>

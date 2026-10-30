@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import PubItem from '../../components/PubItem.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { sitePath } from '../../lib/paths';
+import { isOngoing, periodOf } from '../../lib/projects';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -14,15 +15,15 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, summary, status, year, funder, cover, coverAlt, coverWidth, coverHeight, pubs: pubIds } = project.data;
+const { title, summary, funder, role, lead, cover, coverAlt, coverWidth, coverHeight, pubs: pubIds } = project.data;
 const allPubs = await getCollection('publications');
 const pubs = pubIds
   .map((id) => allPubs.find((p) => p.id === id))
   .filter((p): p is CollectionEntry<'publications'> => Boolean(p))
   .sort((a, b) => b.data.year - a.data.year);
-const meta = [funder, year ? `${status === 'current' ? 'Since' : 'Started'} ${year}` : undefined, status === 'current' ? 'Current' : 'Completed']
+const meta = [funder, role, lead && `Led by ${lead}`, periodOf(project), isOngoing(project) ? 'Ongoing' : 'Completed']
   .filter(Boolean)
-  .join(' · ');
+  .join(' | ');
 ---
 
 <BaseLayout title={project.data.short ?? title} description={summary}>

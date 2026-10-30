@@ -14,7 +14,7 @@ const rankOf = (p: Person) => {
 };
 
 // Alumni in one list without sub-headings (Joy, 2026-10-15), ordered by former role; unknown role last.
-const ALUMNI_ORDER = ['postdoc', 'phd', 'masters', 'visiting-researcher', 'other'];
+const ALUMNI_ORDER = ['postdoc', 'research-affiliate', 'phd', 'masters', 'visiting-researcher', 'other'];
 
 // Within a rank, `order` (set in each person's file) decides; join year breaks ties.
 const byOrder = (a: Person, b: Person) =>
@@ -37,7 +37,11 @@ const members = people
   .sort((a, b) => tierOf(a) - tierOf(b) || bySince(a, b) || rankOf(a) - rankOf(b) || byOrder(a, b));
 const alumni = membersOf('alumni');
 const alumniRank = (p: Person) => ALUMNI_ORDER.indexOf(p.data.formerGroup ?? 'other');
-const alumniList = [...alumni].sort((a, b) => alumniRank(a) - alumniRank(b));
+// Within a role, most recent first (last year in `years`), then name.
+const endYear = (p: Person) => Number(p.data.years?.match(/\d{4}/g)?.pop() ?? 0);
+const alumniList = [...alumni].sort(
+  (a, b) => alumniRank(a) - alumniRank(b) || endYear(b) - endYear(a) || a.data.name.localeCompare(b.data.name),
+);
 
 // Snapshots: portrait first so the feature layout puts it on the left.
 const isPortrait = (s: { width: number; height: number }) => s.height > s.width;
