@@ -28,6 +28,7 @@ export const profilePath = (p: Person) => `/people/${p.id}`;
 /** Singular role labels, used on profile pages and in the alumni list. */
 export const ROLE_LABEL: Record<string, string> = {
   postdoc: 'Postdoctoral Associate',
+  'research-affiliate': 'Research Affiliate',
   phd: 'Ph.D. Student',
   masters: 'Master’s Student',
   'visiting-researcher': 'Visiting Researcher',

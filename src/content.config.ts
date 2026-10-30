@@ -16,7 +16,7 @@ const people = defineCollection({
     /** Start term within `since`; orders same-year joiners. */
     term: z.enum(['Spring', 'Summer', 'Fall']).optional(),
     /** Alumni only: section they belonged to while in the lab. */
-    formerGroup: z.enum(['postdoc', 'phd', 'masters', 'visiting-researcher']).optional(),
+    formerGroup: z.enum(['postdoc', 'research-affiliate', 'phd', 'masters', 'visiting-researcher']).optional(),
     /** Years in the lab, e.g. "2023–2026" (alumni list). */
     years: z.string().optional(),
     /** Alumni only: current position, e.g. "Assistant Professor, University of X". */
@@ -73,6 +73,13 @@ const projects = defineCollection({
     status: z.enum(['current', 'completed']).default('current'),
     year: z.number().optional(),
     funder: z.string().optional(),
+    /** Farshid's role on the award, e.g. "PI", "Co-PI", "Technical Lead". */
+    role: z.string().optional(),
+    /** Lead investigator when Farshid is not PI, e.g. "Alireza Ermagun (George Mason University)". */
+    lead: z.string().optional(),
+    /** Period of performance (ISO dates); `end` decides ongoing vs completed at build time. */
+    start: z.coerce.date().optional(),
+    end: z.coerce.date().optional(),
     url: z.string().url().optional(),
     highlight: z.boolean().default(false),
     /** Card title (1 to 4 words) and one-line tagline, as on HuMNet's project grid. */
