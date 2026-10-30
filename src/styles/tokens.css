@@ -1,4 +1,4 @@
-/* Source Serif 4 headings with a neutral Arial body. */
+/* Source Serif 4 headings with a Source Sans 3 body (findings.md fallback for Proxima Nova). */
 
 :root {
   --color-jumbo: #002e6d;
@@ -23,7 +23,11 @@
   --news-media: var(--color-tufts-brown);
   --news-conference: #5a3d8a;
   --news-lab: #2f6b45;
-  --color-surface: var(--color-white);
+  --color-paper: #ffffff;
+  --color-paper-2: #f7f4ef;
+  --color-rule: #dde2e8;
+  --color-rule-strong: var(--color-jumbo);
+  --color-surface: var(--color-paper);
   --color-band: var(--color-candle);
   --color-text: var(--color-body);
   --color-text-muted: var(--color-body-muted);
@@ -31,9 +35,9 @@
   --color-focus: var(--color-tufts-blue);
 
   --font-display: "Source Serif 4", Georgia, serif;
-  --font-body: Arial, Helvetica, sans-serif;
-  /* Interface text: navigation, buttons, labels, tabs, footer headings. */
-  --font-ui: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
+  --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  /* Interface text shares the body face (two families total). */
+  --font-ui: var(--font-body);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -44,10 +48,10 @@
   --space-7: 3rem;
   --space-8: 4.5rem;
 
-  --measure: 68rem;
+  --measure: 72rem;
   --measure-narrow: 40rem;
   --radius: 2px;
-  --radius-card: 12px;
+  --radius-card: 4px;
   --radius-pill: 999px;
   --header-offset: 0.5rem;
 
