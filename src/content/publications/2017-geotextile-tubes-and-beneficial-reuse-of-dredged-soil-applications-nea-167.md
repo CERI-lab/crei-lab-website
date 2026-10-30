@@ -8,8 +8,8 @@ issue: "4"
 pages: "244-257"
 doi: 10.1680/jgrim.17.00059
 url: "https://doi.org/10.1680/jgrim.17.00059"
-topics: [resilient-equitable]
+topics: [climate-resilient-equitable]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

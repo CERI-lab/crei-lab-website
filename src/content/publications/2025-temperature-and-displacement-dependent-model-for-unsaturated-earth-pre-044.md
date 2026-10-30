@@ -10,6 +10,6 @@ url: "https://doi.org/10.1016/j.gete.2025.100712"
 topic: unsaturated soils
 topics: [slopes-dams-levees]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

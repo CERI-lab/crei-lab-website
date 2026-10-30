@@ -6,6 +6,6 @@ venue: "15th ISTVS European-African Regional Conference, Prague, Czech RepublicÂ
 url: "https://easychair.org/publications/preprint_open/R72F"
 topics: []
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

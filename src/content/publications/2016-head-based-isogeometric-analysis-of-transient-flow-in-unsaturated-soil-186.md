@@ -10,6 +10,6 @@ url: "https://doi.org/10.1016/j.compgeo.2016.11.018"
 topic: unsaturated soils
 topics: [unsaturated]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

@@ -27,7 +27,7 @@ const projects = (await getCollection('projects'))
 
 <BaseLayout
   title={LAB_NAME}
-  description="The Climate Resilient and Equitable Infrastructure Lab at Tufts University studies how climate extremes affect earthen infrastructure and the communities it serves."
+  description="The Climate Resilient and Equitable Infrastructure Lab at Tufts University studies how climate extremes affect infrastructure and the communities that depend on it."
 >
   <section class="hero">
     <img class="hero-map" src={sitePath('/world-map.svg')} alt="" aria-hidden="true" width="1440" height="600" />
@@ -77,7 +77,7 @@ const projects = (await getCollection('projects'))
               return (
                 <li class="faculty">
                   {person.data.photo ? (
-                    <img class="faculty-photo" src={sitePath(person.data.photo)} alt="" width="320" height="320" loading="lazy" />
+                    <img class="faculty-photo" src={sitePath(person.data.avatar ?? person.data.photo)} alt="" width="320" height="320" loading="lazy" />
                   ) : (
                     <span class="faculty-photo faculty-initials" aria-hidden="true">
                       {person.data.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('')}

@@ -7,6 +7,7 @@ affiliation: Department of Civil and Environmental Engineering, Tufts University
 email: paul.kirshen@tufts.edu
 website: https://engineering.tufts.edu/cee/people/faculty/paul-kirshen
 photo: /people/paul-kirshen.jpg
+avatar: /people/paul-kirshen-avatar.jpg
 order: 2
 highlight: true
 # Internal note (not rendered):

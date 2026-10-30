@@ -11,13 +11,14 @@ interface Props {
 // Kept on single lines on purpose: JSX newlines would render as stray spaces before commas.
 const { pub } = Astro.props;
 const { title, authors, year, venue, volume, pages, doi, pdf, code } = pub.data;
-const cleanTitle = title.replace(/\.$/, '');
+// Titles ending in ? or ! keep their own mark; others get the reference's full stop.
+const cleanTitle = /[?!]$/.test(title.trim()) ? title.trim() : `${title.trim().replace(/\.$/, '')}.`;
 const isInGroupAuthor = await labAuthorMatcher();
 ---
 
 <article class="pub-item">
   <p class="pub-ref">
-    {authors.map((name, i) => <>{authorSeparator(i, authors.length)}<span class={isInGroupAuthor(name) ? 'author-ingroup' : undefined}>{natureAuthor(name)}</span></>)}{' '}<span class="pub-title">{cleanTitle}.</span>{' '}<em>{venue}</em>{volume && <>{' '}<b>{volume}</b></>}{pages && <>, {pages}</>}{` (${year}).`}
+    {authors.map((name, i) => <>{authorSeparator(i, authors.length)}<span class={isInGroupAuthor(name) ? 'author-ingroup' : undefined}>{natureAuthor(name)}</span></>)}{' '}<span class="pub-title">{cleanTitle}</span>{' '}<em>{venue}</em>{volume && <>{' '}<b>{volume}</b></>}{pages && <>, {pages}</>}{` (${year}).`}
     {doi && <a href={`https://doi.org/${doi}`} aria-label={`DOI for ${title}`}>DOI</a>}
     {pdf && <a href={pdf} aria-label={`PDF of ${title}`}>PDF</a>}
     {code && <a href={code} aria-label={`Code for ${title}`}>Code</a>}

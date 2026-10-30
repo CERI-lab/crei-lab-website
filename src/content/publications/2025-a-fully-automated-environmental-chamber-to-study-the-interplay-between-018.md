@@ -1,6 +1,6 @@
 ---
 title: "A Fully-Automated Environmental Chamber to Study the Interplay between Soil Desiccation Cracking, Temperature, and CO2 Concentration"
-authors: ["Clay Goodman, C.", "Vahedifard, Farshid"]
+authors: ["Goodman, C. C.", "Vahedifard, Farshid"]
 year: 2025
 venue: Geotechnical Testing Journal
 volume: "48"

@@ -9,8 +9,8 @@ pages: "4651-4660"
 doi: 10.1109/tpwrs.2022.3146229
 url: "https://doi.org/10.1109/tpwrs.2022.3146229"
 topic: slopes/dams/levees
-topics: [resilient-equitable, extreme-events, slopes-dams-levees]
+topics: [climate-resilient-equitable]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

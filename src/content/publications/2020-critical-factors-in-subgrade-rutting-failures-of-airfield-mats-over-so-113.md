@@ -10,6 +10,6 @@ doi: 10.1061/(asce)gm.1943-5622.0001867
 url: "https://doi.org/10.1061/(asce)gm.1943-5622.0001867"
 topics: []
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

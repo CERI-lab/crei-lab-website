@@ -10,6 +10,6 @@ doi: 10.1061/jggefk.gteng-14248
 url: "https://doi.org/10.1061/jggefk.gteng-14248"
 topics: [slopes-dams-levees]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

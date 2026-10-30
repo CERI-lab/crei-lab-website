@@ -10,6 +10,6 @@ doi: 10.1007/s11027-019-09884-3
 url: "https://doi.org/10.1007/s11027-019-09884-3"
 topics: [climate-resilient-equitable]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

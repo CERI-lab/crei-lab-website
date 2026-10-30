@@ -1,6 +1,6 @@
 ---
 title: Poisson’s Ratio Characteristic Curve of Unsaturated Soils
-authors: ["Kumar Thota, Sannith", "Duc Cao, Toan", "Vahedifard, Farshid"]
+authors: ["Thota, Sannith Kumar", "Cao, Toan Duc", "Vahedifard, Farshid"]
 year: 2020
 venue: Journal of Geotechnical and Geoenvironmental Engineering
 volume: "147"

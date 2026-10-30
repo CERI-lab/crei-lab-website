@@ -1,6 +1,6 @@
 ---
 title: Isogeometric analysis through Bézier extraction for thermo-hydro-mechanical modeling of saturated porous media
-authors: ["Shahrokhabadi, Shahriar", "Duc Cao, Toan", "Vahedifard, Farshid"]
+authors: ["Shahrokhabadi, Shahriar", "Cao, Toan Duc", "Vahedifard, Farshid"]
 year: 2018
 venue: Computers and Geotechnics
 volume: "107"

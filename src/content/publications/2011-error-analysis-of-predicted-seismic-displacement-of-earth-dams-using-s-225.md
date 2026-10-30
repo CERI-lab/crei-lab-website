@@ -8,6 +8,6 @@ doi: 10.1061/41165(397)332
 url: "https://doi.org/10.1061/41165(397)332"
 topics: [slopes-dams-levees]
 type: conference
-listed: true
+listed: false
 highlight: false
 ---

@@ -11,6 +11,6 @@ url: "https://doi.org/10.1061/ijgnai.gmeng-11393"
 topic: unsaturated soils
 topics: [slopes-dams-levees]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

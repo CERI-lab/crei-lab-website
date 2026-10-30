@@ -2,9 +2,12 @@ import type { CollectionEntry } from 'astro:content';
 
 type Project = CollectionEntry<'projects'>;
 
-/** Ongoing when the period of performance has not ended; falls back to `status` without an end date. */
+/**
+ * Ongoing when the period of performance has not ended. `status: completed` always wins, for a
+ * project Farshid lists as completed before its end date (NASA geohazards, 2026-10-16 file).
+ */
 export const isOngoing = (p: Project, now = new Date()) =>
-  p.data.end ? p.data.end >= now : p.data.status === 'current';
+  p.data.status !== 'completed' && (p.data.end ? p.data.end >= now : true);
 
 const startYear = (p: Project) => p.data.start?.getUTCFullYear() ?? p.data.year;
 

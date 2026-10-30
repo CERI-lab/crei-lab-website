@@ -1,7 +1,7 @@
 ---
 title: Integrating Earth Observations Toward Advancing Equitable Resilience to Geohazards in a Changing Climate
 summary: "The team works with the Wampanoag Tribe of Gay Head (Aquinnah) and East Boston’s NOAH to develop tools that combine Earth observations and socioeconomic data to address unequal geohazard risk."
-status: current
+status: completed
 year: 2024
 funder: "National Aeronautics and Space Administration (NASA)"
 role: "PI"

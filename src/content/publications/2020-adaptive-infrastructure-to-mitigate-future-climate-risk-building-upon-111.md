@@ -11,6 +11,6 @@ url: "https://doi.org/10.1061/geosek.0000101"
 topic: infrastructure
 topics: [climate-resilient-equitable]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

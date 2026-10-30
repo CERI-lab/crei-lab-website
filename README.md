@@ -20,12 +20,11 @@ Edit Markdown in `src/content/` (people, projects, publications, teaching, news)
 
 Live draft: https://ceri-lab.github.io/crei-lab-website/
 
-The `main` branch contains website source only. The `gh-pages` branch contains the
-built static site and is published by GitHub Pages. Internal research material and
-working notes are excluded from this public repository.
+The `main` branch contains website source only. Every push to `main` builds the site and
+publishes it to GitHub Pages through GitHub Actions (`.github/workflows/deploy.yml`).
+Internal research material and working notes are excluded from this public repository.
 
-Run `npm run check` and `npm run build` before publishing an updated `dist/` to the
-`gh-pages` branch. Source changes alone do not update the live website.
+Run `npx astro check` and `npm run build` before pushing.
 
 Internal links and public assets use `src/lib/paths.ts` for the
 `/crei-lab-website` deployment base.

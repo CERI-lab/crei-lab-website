@@ -8,8 +8,8 @@ issue: "6"
 pages: "04018099"
 doi: 10.1061/(asce)mt.1943-5533.0002313
 url: "https://doi.org/10.1061/(asce)mt.1943-5533.0002313"
-topics: [multiphysics]
+topics: [unsaturated]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

@@ -7,8 +7,8 @@ volume: "89"
 pages: "103-112"
 doi: 10.1016/j.compgeo.2017.04.011
 url: "https://doi.org/10.1016/j.compgeo.2017.04.011"
-topics: [multiphysics]
+topics: [unsaturated]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

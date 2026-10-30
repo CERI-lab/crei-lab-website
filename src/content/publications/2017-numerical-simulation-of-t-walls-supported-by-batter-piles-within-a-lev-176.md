@@ -11,6 +11,6 @@ url: "https://doi.org/10.1080/19375247.2017.1376369"
 topic: slopes/dams/levees
 topics: [slopes-dams-levees]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

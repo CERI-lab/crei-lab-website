@@ -8,14 +8,23 @@ import { PUB_TOPICS, SCHOLAR_URL } from '../../lib/site';
 const pubs = (await getCollection('publications'))
   .filter(isListedPub)
   .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title));
-const years = [...new Set(pubs.map((p) => p.data.year))];
+// Years before 2015 share one block, "Before 2015" (Joy, 2026-10-30).
+const EARLY = 2015;
+const bucketOf = (year: number) => (year < EARLY ? 'early' : String(year));
+const years = [...new Set(pubs.map((p) => bucketOf(p.data.year)))];
+const yearLabel = (b: string) => (b === 'early' ? `Before ${EARLY}` : b);
+// The rail is one word wide: "Earlier" there, "Before 2015" as the block heading.
+const railLabel = (b: string) => (b === 'early' ? 'Earlier' : b);
+// Shown newest first, numbered chronologically: the oldest paper is [1] (Farshid, 2026-10-30).
+const numberOf = new Map(pubs.map((p, i) => [p.id, pubs.length - i]));
+// Topic lists are newest first and reversed-numbered, so each topic's oldest paper is [1] (Joy, 2026-10-30).
 // Each paper carries at most one topic; papers with no topic (early work) appear only in By Year.
 const topics = PUB_TOPICS.map((t) => ({ ...t, pubs: pubs.filter((p) => p.data.topics.includes(t.key)) }));
 ---
 
 <BaseLayout
   title="Publications"
-  description="Journal articles and conference papers from the Climate Resilient and Equitable Infrastructure Lab at Tufts University."
+  description="Journal articles from the Climate Resilient and Equitable Infrastructure Lab at Tufts University."
 >
   <section class="section">
     <div class="wrap">
@@ -36,14 +45,18 @@ const topics = PUB_TOPICS.map((t) => ({ ...t, pubs: pubs.filter((p) => p.data.to
           <div class="pub-timeline">
             <nav aria-label="Jump to year">
               <ol class="year-rail" data-year-rail>
-                {years.map((year) => <li><a href={`#y${year}`}>{year}</a></li>)}
+                {years.map((year) => <li><a href={`#y${year}`}>{railLabel(year)}</a></li>)}
               </ol>
             </nav>
             <div>
               {years.map((year) => (
                 <section class="year-block" id={`y${year}`} aria-labelledby={`y${year}-h`}>
-                  <h2 id={`y${year}-h`}>{year}</h2>
-                  {pubs.filter((p) => p.data.year === year).map((pub) => <PubItem pub={pub} />)}
+                  <h2 id={`y${year}-h`}>{yearLabel(year)}</h2>
+                  <ol class="pub-numbered">
+                    {pubs.filter((p) => bucketOf(p.data.year) === year).map((pub) => (
+                      <li value={numberOf.get(pub.id)}><PubItem pub={pub} /></li>
+                    ))}
+                  </ol>
                 </section>
               ))}
             </div>
@@ -69,11 +82,11 @@ const topics = PUB_TOPICS.map((t) => ({ ...t, pubs: pubs.filter((p) => p.data.to
             </div>
             {topics.map((t, i) => (
               <div class="tab-panel topic-panel" role="tabpanel" id={`topic-${t.key}`} aria-labelledby={`topic-${t.key}-tab`} hidden={i !== 0}>
-                <h2>{t.full} <span class="topic-count">({t.pubs.length})</span></h2>
+                <h2>{t.full}</h2>
                 {t.pubs.length === 0 ? (
                   <p class="empty">Topic assignments are being prepared.</p>
                 ) : (
-                  <ol class="topic-list">{t.pubs.map((pub) => <li><PubItem pub={pub} /></li>)}</ol>
+                  <ol class="topic-list" reversed>{t.pubs.map((pub) => <li><PubItem pub={pub} /></li>)}</ol>
                 )}
               </div>
             ))}

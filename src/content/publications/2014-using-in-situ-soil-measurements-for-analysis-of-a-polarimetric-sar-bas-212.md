@@ -10,6 +10,6 @@ url: "https://doi.org/10.1016/j.enggeo.2014.07.007"
 topic: slopes/dams/levees
 topics: [slopes-dams-levees]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

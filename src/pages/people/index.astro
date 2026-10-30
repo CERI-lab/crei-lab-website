@@ -36,6 +36,8 @@ const members = people
   .filter(isCurrentMember)
   .sort((a, b) => tierOf(a) - tierOf(b) || bySince(a, b) || rankOf(a) - rankOf(b) || byOrder(a, b));
 const alumni = membersOf('alumni');
+// Short degree labels keep each alumni line on one row in the two-column list (Joy, 2026-10-30).
+const ALUMNI_LABEL: Record<string, string> = { postdoc: 'Postdoc', phd: 'Ph.D.', masters: 'M.S.' };
 const alumniRank = (p: Person) => ALUMNI_ORDER.indexOf(p.data.formerGroup ?? 'other');
 // Within a role, most recent first (last year in `years`), then name.
 const endYear = (p: Person) => Number(p.data.years?.match(/\d{4}/g)?.pop() ?? 0);
@@ -74,7 +76,7 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
           <h2 id="people-alumni">Alumni</h2>
           <ul class="alumni-list">
             {alumniList.map((p) => {
-              const role = p.data.formerGroup ? ROLE_LABEL[p.data.formerGroup] : undefined;
+              const role = p.data.formerGroup ? (ALUMNI_LABEL[p.data.formerGroup] ?? ROLE_LABEL[p.data.formerGroup]) : undefined;
               // One line: Name | Former role | Years | Current position (Joy, 2026-10-30).
               const parts = [role, p.data.years, p.data.current?.replace(/\.$/, '')].filter(Boolean);
               const href = hasProfile(p) ? sitePath(profilePath(p)) : p.data.website;
@@ -133,17 +135,24 @@ const featured = shots.length === 3 && shots.filter(isPortrait).length === 1;
     }
   }
 
+  /* Two columns on wide screens, read top to bottom (Joy, 2026-10-30). */
   .alumni-list {
     margin: 0;
     padding: 0;
     list-style: none;
-    max-width: 52rem;
+    columns: 2;
+    column-gap: var(--space-6);
   }
 
   .alumni-list li {
-    padding: 0.2rem 0;
-    font-size: 0.9375rem;
-    line-height: 1.5;
+    padding: 0.15rem 0;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    break-inside: avoid;
+  }
+
+  @media (max-width: 760px) {
+    .alumni-list { columns: 1; }
   }
 
   .alumni-sep {

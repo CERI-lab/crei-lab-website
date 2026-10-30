@@ -5,8 +5,10 @@ title: Professor and Louis Berger Chair in Civil and Environmental Engineering
 affiliation: Department of Civil and Environmental Engineering, Tufts University
 email: farshid.vahedifard@tufts.edu
 scholar: https://scholar.google.com/citations?user=dc3G9EoAAAAJ
+linkedin: https://www.linkedin.com/in/farshid-vahedifard-0b27a522/
 orcid: 0000-0001-8883-4533
 photo: /people/farshid-vahedifard.jpg
+avatar: /people/farshid-vahedifard-avatar.jpg
 order: 1
 highlight: true
 ---

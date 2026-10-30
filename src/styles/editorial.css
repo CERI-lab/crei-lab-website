@@ -15,11 +15,19 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Research Areas runs a little wider than the page measure so each column reads less cramped. */
+@media (min-width: 1101px) {
+  .area-grid {
+    width: min(100vw - 2 * var(--space-5), calc(var(--measure) + 6rem));
+    margin-inline: calc((100% - min(100vw - 2 * var(--space-5), calc(var(--measure) + 6rem))) / 2);
+  }
+}
+
 .area-cell {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 0 clamp(1rem, 2vw, 1.75rem) var(--space-2);
+  padding: 0 clamp(0.875rem, 1.6vw, 1.5rem) var(--space-2);
   border-left: 1px solid var(--color-rule);
 }
 
@@ -332,11 +340,14 @@
   font-size: 1.35rem;
 }
 
-.year-block .pub-item:first-of-type { border-top: 0; }
+.year-block .pub-numbered > li:first-child .pub-item { border-top: 0; }
+/* Chronological numbers, newest first: [130] at the top, [1] at the bottom. */
+.pub-numbered { margin: 0; padding-left: 2.75rem; }
+.pub-numbered > li { padding-left: 0.25rem; }
+.pub-numbered > li::marker { color: var(--color-text-muted); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 
 .topic-panel > h2 { margin: var(--space-5) 0 var(--space-2); font-size: 1.2rem; line-height: 1.35; }
-.topic-count { color: var(--color-text-muted); font-weight: 400; }
-/* Numbered so the size of each topic is visible at a glance (Joy, 2026-10-15). */
+/* Numbered in reverse: newest first, oldest paper in the topic is [1] (Joy, 2026-10-30). */
 .topic-list { margin: 0; padding-left: 2.25rem; }
 .topic-list > li { padding-left: 0.25rem; }
 .topic-list > li::marker { color: var(--color-text-muted); font-family: var(--font-ui); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }

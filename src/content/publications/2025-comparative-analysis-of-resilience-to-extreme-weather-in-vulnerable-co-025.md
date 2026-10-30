@@ -9,6 +9,6 @@ url: "https://doi.org/10.1061/9780784486535.012"
 topic: climate
 topics: [climate-resilient-equitable]
 type: conference
-listed: true
+listed: false
 highlight: false
 ---

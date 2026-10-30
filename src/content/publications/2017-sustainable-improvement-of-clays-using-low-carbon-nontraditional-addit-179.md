@@ -8,8 +8,8 @@ issue: "3"
 pages: "04017162"
 doi: 10.1061/(asce)gm.1943-5622.0001086
 url: "https://doi.org/10.1061/(asce)gm.1943-5622.0001086"
-topics: [resilient-equitable]
+topics: [climate-resilient-equitable]
 type: journal
-listed: false
+listed: true
 highlight: false
 ---

@@ -1,6 +1,6 @@
 ---
 title: A Temperature-Dependent Model for Thermal Conductivity Function of Unsaturated Soils
-authors: ["Duc Cao, Toan", "Thota, Sannith Kumar", "Vahedifard, Farshid", "Amirlatifi, Amin"]
+authors: ["Cao, Toan Duc", "Thota, Sannith Kumar", "Vahedifard, Farshid", "Amirlatifi, Amin"]
 year: 2021
 venue: IFCEE 2021
 pages: "89-98"

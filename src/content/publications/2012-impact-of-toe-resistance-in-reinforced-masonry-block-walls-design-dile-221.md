@@ -10,6 +10,6 @@ doi: 10.1061/(asce)gt.1943-5606.0000579
 url: "https://doi.org/10.1061/(asce)gt.1943-5606.0000579"
 topics: [slopes-dams-levees]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---

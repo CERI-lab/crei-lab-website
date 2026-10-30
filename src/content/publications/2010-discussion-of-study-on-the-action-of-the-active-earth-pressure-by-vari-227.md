@@ -11,6 +11,6 @@ url: "https://doi.org/10.1002/nag.950"
 topic: slopes/dams/levees
 topics: [slopes-dams-levees]
 type: journal
-listed: true
+listed: false
 highlight: false
 ---
