@@ -9,6 +9,7 @@ order: 6
 since: 2024
 keywords: [Critical Infrastructure, Resilience, Risk Communication]
 photo: /people/julian-kelly.jpg
+term: Summer
 # Internal note (not rendered):
 # Roster and email from Joy (设计网站.md, 2026-10-15). Photo, join year, and title wording pending.
 ---

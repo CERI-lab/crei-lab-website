@@ -13,6 +13,8 @@ const people = defineCollection({
       .optional(),
     /** Year the person joined the lab; sorts members within a section (earliest first). */
     since: z.number().optional(),
+    /** Start term within `since`; orders same-year joiners. */
+    term: z.enum(['Spring', 'Summer', 'Fall']).optional(),
     /** Alumni only: section they belonged to while in the lab. */
     formerGroup: z.enum(['postdoc', 'phd', 'masters', 'visiting-researcher']).optional(),
     /** Years in the lab, e.g. "2023–2026" (alumni list). */

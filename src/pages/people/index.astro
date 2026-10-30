@@ -7,7 +7,6 @@ import { sitePath } from '../../lib/paths';
 import { groupOf, hasProfile, profilePath, ROLE_LABEL, type Group, type Person } from '../../lib/people';
 
 // Current members in one list, no role sub-headings (each card already shows the role; Joy, 2026-10-15).
-// Order: faculty row, then postdocs, Ph.D. candidates, Ph.D. students, master's, visiting researchers.
 const RANK: Record<string, number> = { postdoc: 0, phdCandidate: 1, phd: 2, masters: 3, 'visiting-researcher': 4, collaborator: 5 };
 const rankOf = (p: Person) => {
   const g = groupOf(p);
@@ -26,7 +25,11 @@ const membersOf = (group: Group) => people.filter((p) => groupOf(p) === group).s
 // Faculty row: PI first, then visiting faculty.
 const faculty = [...membersOf('pi'), ...membersOf('visiting')];
 const isCurrentMember = (p: Person) => !['pi', 'visiting', 'alumni'].includes(groupOf(p));
-const members = people.filter(isCurrentMember).sort((a, b) => rankOf(a) - rankOf(b) || byOrder(a, b));
+// Current members by join year and term (Joy, 2026-10-30); same year falls back to role rank, then `order`. No year sorts last.
+const TERMS = ['Spring', 'Summer', 'Fall'];
+const joinKey = (p: Person) => (p.data.since ?? 9999) * 10 + (p.data.term ? TERMS.indexOf(p.data.term) : 3);
+const bySince = (a: Person, b: Person) => joinKey(a) - joinKey(b);
+const members = people.filter(isCurrentMember).sort((a, b) => bySince(a, b) || rankOf(a) - rankOf(b) || byOrder(a, b));
 const alumni = membersOf('alumni');
 const alumniRank = (p: Person) => ALUMNI_ORDER.indexOf(p.data.formerGroup ?? 'other');
 const alumniList = [...alumni].sort((a, b) => alumniRank(a) - alumniRank(b));

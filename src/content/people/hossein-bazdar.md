@@ -12,6 +12,7 @@ scholar: https://scholar.google.com/citations?user=-TCYvGIAAAAJ
 linkedin: https://www.linkedin.com/in/hossein-bazdar-81ab97130/
 website: https://github.com/Hosseinb97
 photo: /people/hossein-bazdar.jpg
+term: Spring
 # Internal note (not rendered):
 # Roster and email from Joy (设计网站.md, 2026-10-15). Photo, join year, and title wording pending.
 ---

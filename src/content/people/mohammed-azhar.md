@@ -11,6 +11,7 @@ order: 1
 since: 2023
 keywords: [Geotechnical engineering, Climate adaptation, Resilient infrastructure, Levees]
 photo: /people/mohammed-azhar.jpg
+term: Spring
 # Internal note (not rendered):
 # Title from Google Scholar profile ("Ph.D. Candidate at Tufts University"). Join year (`since`) and photo pending from Joy.
 ---

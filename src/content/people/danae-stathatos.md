@@ -10,6 +10,7 @@ since: 2026
 keywords: [Food justice, Climate resilience, Ecosystem services, Soil formations/characteristics, Impact investing and Solidarity economy]
 linkedin: https://www.linkedin.com/in/danae-stathatos-097112261/
 photo: /people/danae-stathatos.jpg
+term: Fall
 # Internal note (not rendered):
 # Roster and email from Joy (设计网站.md, 2026-10-15). Photo, join year, and title wording pending.
 ---

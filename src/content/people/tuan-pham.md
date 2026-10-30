@@ -11,6 +11,7 @@ keywords: [Climate-Resilient Infrastructure, Unsaturated Soil Mechanics, Coupled
 scholar: https://scholar.google.com/citations?user=IToRTywAAAAJ
 linkedin: https://www.linkedin.com/in/tuan-a-pham-433806139/
 photo: /people/tuan-pham.jpg
+term: Fall
 # Internal note (not rendered):
 # Roster and email from Joy (设计网站.md, 2026-10-15). Photo, join year, and title wording pending.
 ---
