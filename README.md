@@ -18,7 +18,7 @@ Open http://localhost:4321. Build with `npm run build`; preview the `dist/` outp
 Edit Markdown in `src/content/` (people, projects, publications, teaching, news). Empty collections render as “Content forthcoming.” Do not invent a student roster or fake citations.
 ## Review deployment
 
-Live draft: https://joyingl.github.io/crei-lab-website/
+Live draft: https://ceri-lab.github.io/crei-lab-website/
 
 The `main` branch contains website source only. The `gh-pages` branch contains the
 built static site and is published by GitHub Pages. Internal research material and

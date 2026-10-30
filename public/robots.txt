@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://joyingl.github.io/crei-lab-website/sitemap-index.xml
+Sitemap: https://ceri-lab.github.io/crei-lab-website/sitemap-index.xml
