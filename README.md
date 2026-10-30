@@ -4,15 +4,6 @@ Static Astro site for the Climate Resilient and Equitable Infrastructure Lab (CR
 
 Research notes for this project (`task_plan.md`, `findings.md`, `data/`, `docs/`, `scripts/`) live in the same folder and are not the site app.
 
-## Develop
-
-```bash
-npm install
-npm run dev
-```
-
-Open http://localhost:4321. Build with `npm run build`; preview the `dist/` output with `npm run preview`.
-
 ## Content
 
 Edit Markdown in `src/content/` (people, projects, publications, teaching, news). Empty collections render as “Content forthcoming.” Do not invent a student roster or fake citations.
