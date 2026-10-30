@@ -12,9 +12,9 @@
     "project": "nsf-2552816",
     "short": "Levee Digital Twin",
     "tagline": "Physics-based models and monitoring data for levee flood-risk assessment",
-    "image": "/projects/levee-adaptation-framework.webp",
-    "imageAlt": "Cycle diagram of a five-step levee framework: risk screening, stakeholder engagement, multi-scale risk assessment, co-production of adaptation, and performance monitoring.",
+    "image": "/projects/levee-seepage-calibration.webp",
+    "imageAlt": "Finite element mesh of a levee cross section with a silty sand embankment, a gravel layer, a silty foundation layer, boundary conditions, and numbered sensor locations.",
     "width": 1200,
-    "height": 1215
+    "height": 422
   }
 ]
