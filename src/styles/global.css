@@ -869,3 +869,16 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .js-reveal [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* Press state: controls give way slightly while held (transform only). */
+.btn:active,
+.tab-list button:active,
+.inst-search button:active,
+.back-to-top:active,
+.page-search button:active { transform: scale(0.98); }
+
+/* Links and linked cards darken while pressed. */
+a:active,
+.more-link:active { color: var(--color-primary-strong); }
+.project-link:active .project-media,
+.area-cell:active { border-color: var(--color-primary-strong); }
