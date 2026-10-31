@@ -41,12 +41,9 @@ const pageAnimation = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" href={sitePath('/favicon.svg')} type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap"
-      rel="stylesheet"
-    />
+    {/* Fonts are self-hosted (src/styles/fonts.css); preload the Latin files every page uses. */}
+    <link rel="preload" href={sitePath('/fonts/source-serif-4-latin.woff2')} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={sitePath('/fonts/plus-jakarta-sans-latin.woff2')} as="font" type="font/woff2" crossorigin />
     <link rel="sitemap" href={sitePath('/sitemap-index.xml')} />
     <title>{pageTitle}</title>
     <ClientRouter />
